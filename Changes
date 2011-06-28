@@ -1,5 +1,12 @@
 Revision history for Geo::Routing (previously Geo::Gosmore)
 
+0.07 2011-06-28 14:03:21
+
+    - OSRM can now return the distance & time in the correct format.
+
+    - A bunch of bugfixes and refinements, now faster with a
+      dependency on XML::SAX::Expat.
+
 0.06 2011-06-27 14:10:45
 
     - Initial version with rudimentary support for multiple backends.

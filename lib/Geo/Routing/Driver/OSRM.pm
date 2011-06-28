@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Driver::OSRM::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Driver::OSRM::VERSION = '0.06';
+  $Geo::Routing::Driver::OSRM::VERSION = '0.07';
 }
 use Any::Moose;
 use warnings FATAL => "all";
@@ -57,9 +57,7 @@ sub route {
     my $parsed = $self->_parse_data($xml);
     return unless $parsed;
 
-    my $route = Geo::Routing::Driver::OSRM::Route->new(
-        points      => $parsed->{points},
-    );
+    my $route = Geo::Routing::Driver::OSRM::Route->new(%$parsed);
 
     return $route;
 }
@@ -87,8 +85,8 @@ sub _parse_data {
 
     my $return = {
         name         => $last_instructions->{name},
-        distance     => $distance,
-        duration     => $duration,
+        distance     => ($distance / 1000),
+        travel_time  => ($duration * 60),
         points       => $coordinates,
         instructions => $instructions,
     };

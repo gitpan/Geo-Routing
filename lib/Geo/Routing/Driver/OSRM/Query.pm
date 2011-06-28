@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Driver::OSRM::Query::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Driver::OSRM::Query::VERSION = '0.06';
+  $Geo::Routing::Driver::OSRM::Query::VERSION = '0.07';
 }
 use Any::Moose;
 use warnings FATAL => "all";

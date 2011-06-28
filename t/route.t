@@ -13,16 +13,8 @@ my @from_to = (
             to_latitude    => '51.5614',
             to_longitude    => '-0.0466',
         },
-        distance_ok => sub {
-            my ($distance) = @_;
-
-            ($distance >= 8 && $distance <= 10);
-        },
-        travel_time_ok => sub {
-            my ($travel_time) = @_;
-
-            ($travel_time >= 300 && $travel_time <= 400);
-        },
+        distance_ok => [ 6, 9 ],
+        travel_time_ok => [ 300, 430 ],
     },
     {
         args => {
@@ -31,17 +23,20 @@ my @from_to = (
             to_latitude    => '52.325',
             to_longitude   => '1.317',
         },
-        distance_ok => sub {
-            my ($distance) = @_;
-
-            ($distance >= 200 && $distance <= 230);
-        },
-        travel_time_ok => sub {
-            my ($travel_time) = @_;
-
-            ($travel_time >= 5000 && $travel_time <= 7000);
-        },
+        distance_ok => [ 155, 230 ],
+        travel_time_ok => [ 5000, 8000 ],
     },
+    {
+        args => {
+            from_latitude  => '56.6242263731532',
+            from_longitude => '-6.06496810913086',
+            to_latitude    => '57.4131709956085',
+            to_longitude   => '-6.19028091430664',
+        },
+#        distance_ok => [ 155, 230 ],
+#        travel_time_ok => [ 5000, 8000 ],
+    },
+
     {
         args => {
             from_latitude  => '52.75929',
@@ -122,7 +117,7 @@ for my $driver (sort keys %driver) {
                 cmp_ok $query->query_string, 'eq', $qs, qq[QUERY_STRING="$qs" gosmore];
             } elsif ($driver eq 'OSRM') {
                 my $qs = "&${flat}&${flon}&${tlat}&${tlon}";
-                cmp_ok $query->query_string, 'eq', $qs, qq[http://localhost:5000/route$qs];
+                cmp_ok $query->query_string, 'eq', $qs, qq[$ENV{OSRM_HTTP_PATH}/route$qs];
             }
 
             my $route = $routing->route($query);
@@ -132,15 +127,11 @@ for my $driver (sort keys %driver) {
                 next ROUTE;
             }
 
-            CHECK_VALUE: for my $value (qw(distance travel_time)) {
-                unless ($route->can($value)) {
-                    ok(1, "The driver $driver doesn't have a $value method, skipping");
-                    next CHECK_VALUE;
-                }
-                if (my $callback = $from_to->{"${value}_ok"}) {
+            for my $value (qw(distance travel_time)) {
+                if (my ($from, $to) = @{ $from_to->{"${value}_ok"} || [] }) {
                     my $got = $route->$value;
-                    my $got_ok = $callback->($got);
-                    ok($got_ok, "$driver: Got the $value of <$got> for a route, which was within bounds");
+                    cmp_ok $got, ">=", $from, "$driver: Got the <$value> of <$got> for a route, which is at least <$from>";
+                    cmp_ok $got, "<=", $to, "$driver: Got the <$value> of <$got> for a route, which is at most <$to>";
                 }
             }
         }

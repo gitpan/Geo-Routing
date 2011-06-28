@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Role::Route::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Role::Route::VERSION = '0.06';
+  $Geo::Routing::Role::Route::VERSION = '0.07';
 }
 use Any::Moose '::Role';
 use warnings FATAL => "all";
@@ -47,5 +47,14 @@ sub _build_distance {
 
     return $distance;
 }
+
+has travel_time => (
+    is            => 'ro',
+    isa           => 'Int',
+    documentation => '',
+    lazy_build    => 1,
+);
+
+requires '_build_travel_time';
 
 1;

@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::VERSION = '0.06';
+  $Geo::Routing::VERSION = '0.07';
 }
 use Any::Moose;
 use Any::Moose '::Util::TypeConstraints';

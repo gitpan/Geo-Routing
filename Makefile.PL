@@ -34,11 +34,12 @@ my %WriteMakefileArgs = (
     'IPC::System::Simple' => '0',
     'Text::Trim' => '0',
     'WWW::Mechanize' => '0',
+    'XML::SAX::Expat' => '0',
     'XML::Simple' => '0',
     'autodie' => '0',
     'namespace::clean' => '0'
   },
-  'VERSION' => '0.06',
+  'VERSION' => '0.07',
   'test' => {
     'TESTS' => 't/*.t'
   }

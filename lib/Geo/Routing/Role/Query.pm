@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Role::Query::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Role::Query::VERSION = '0.06';
+  $Geo::Routing::Role::Query::VERSION = '0.07';
 }
 use Any::Moose '::Role';
 use warnings FATAL => "all";

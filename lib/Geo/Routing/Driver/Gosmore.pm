@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Driver::Gosmore::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Driver::Gosmore::VERSION = '0.06';
+  $Geo::Routing::Driver::Gosmore::VERSION = '0.07';
 }
 use Any::Moose;
 use Any::Moose '::Util::TypeConstraints';
