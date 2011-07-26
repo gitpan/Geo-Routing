@@ -30,16 +30,14 @@ my %WriteMakefileArgs = (
     'Data::Dumper' => '0',
     'File::Basename' => '0',
     'Geo::Distance::XS' => '0',
-    'HTML::Entities' => '0',
     'IPC::System::Simple' => '0',
+    'JSON::XS' => '0',
     'Text::Trim' => '0',
     'WWW::Mechanize' => '0',
-    'XML::SAX::Expat' => '0',
-    'XML::Simple' => '0',
     'autodie' => '0',
     'namespace::clean' => '0'
   },
-  'VERSION' => '0.08',
+  'VERSION' => '0.09',
   'test' => {
     'TESTS' => 't/*.t'
   }

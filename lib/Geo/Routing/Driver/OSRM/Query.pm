@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Driver::OSRM::Query::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Driver::OSRM::Query::VERSION = '0.08';
+  $Geo::Routing::Driver::OSRM::Query::VERSION = '0.09';
 }
 use Any::Moose;
 use warnings FATAL => "all";
@@ -15,7 +15,7 @@ sub query_string {
 
     my @atoms = qw(from_latitude from_longitude to_latitude to_longitude);
 
-    my $query_string = '&' . join '&', map { $self->$_ } @atoms;
+    my $query_string = '&output=json&' . join '&', map { $self->$_ } @atoms;
 
     return $query_string;
 }
