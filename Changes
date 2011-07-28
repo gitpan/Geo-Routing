@@ -1,5 +1,13 @@
 Revision history for Geo::Routing (previously Geo::Gosmore)
 
+0.10 2011-07-28 11:35:27
+
+    - Support both XML and JSON query methods to OSRM for debugging
+
+    - Use keep-alive with Mechanize
+
+    - More robust tests
+
 0.09 2011-07-26 22:57:34
 
     - Switch from XML parsing for OSRM to using JSON::XS. Eliminates

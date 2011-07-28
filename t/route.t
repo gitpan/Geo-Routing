@@ -69,12 +69,15 @@ my %driver = (
         }
     ],
     OSRM => [
-        {
-            args => {
-                osrm_path => $ENV{OSRM_HTTP_PATH},
-            },
-            run_if => sub { $ENV{OSRM_HTTP_PATH} },
-        }
+        map {
+            +{
+                args => {
+                    osrm_path => $ENV{OSRM_HTTP_PATH},
+                    query_method => $_,
+                },
+                run_if => sub { $ENV{OSRM_HTTP_PATH} },
+            }
+        } qw(xml json)
     ],
 );
 
@@ -116,14 +119,18 @@ for my $driver (sort keys %driver) {
                 my $qs = "flat=${flat}&flon=${flon}&tlat=${tlat}&tlon=${tlon}&fast=1&v=motorcar";
                 cmp_ok $query->query_string, 'eq', $qs, qq[QUERY_STRING="$qs" gosmore];
             } elsif ($driver eq 'OSRM') {
-                my $qs = "&output=json&${flat}&${flon}&${tlat}&${tlon}";
-                cmp_ok $query->query_string, 'eq', $qs, qq[$ENV{OSRM_HTTP_PATH}$qs];
+                my $query_method = $test->{args}->{query_method};
+                my $qs = $query->query_string($query_method);
+                like
+                    $qs,
+                    qr/^&output=$query_method.*?&${flat}&${flon}&${tlat}&${tlon}/,
+                    qq[$ENV{OSRM_HTTP_PATH}$qs];
             }
 
             my $route = $routing->route($query);
 
-            if ($from_to->{no_route}) {
-                ok(!$route, "We can't find a route");
+            unless ($route) {
+                ok(!$route, "We can't find a route. Maybe the serve isn't running?");
                 next ROUTE;
             }
 
