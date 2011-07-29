@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Role::Driver::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Role::Driver::VERSION = '0.10';
+  $Geo::Routing::Role::Driver::VERSION = '0.11';
 }
 use Any::Moose '::Role';
 use warnings FATAL => "all";

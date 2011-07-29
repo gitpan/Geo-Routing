@@ -36,5 +36,5 @@ resources:
   homepage: http://search.cpan.org/dist/Geo-Routing/
   license: http://dev.perl.org/licenses/
   repository: git://github.com/avar/geo-routing.git
-version: 0.10
+version: 0.11
 x_authority: cpan:AVAR

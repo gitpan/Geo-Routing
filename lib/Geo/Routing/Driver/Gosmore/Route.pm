@@ -3,7 +3,7 @@ BEGIN {
   $Geo::Routing::Driver::Gosmore::Route::AUTHORITY = 'cpan:AVAR';
 }
 BEGIN {
-  $Geo::Routing::Driver::Gosmore::Route::VERSION = '0.10';
+  $Geo::Routing::Driver::Gosmore::Route::VERSION = '0.11';
 }
 use Any::Moose;
 use warnings FATAL => "all";
